@@ -36,8 +36,9 @@ void bfs(int y, int x) {
 			if (visited[ny][nx] != 0)
 				continue;
 			
+			//섬의 경계는 nq에 저장
 			if (map[ny][nx] == '_') {
-				visited[ny][nx] = 1;
+				visited[ny][nx] = 1; //잊지 말고 방문했음 표시
 				nq.push({ ny, nx });
 				continue;
 			}

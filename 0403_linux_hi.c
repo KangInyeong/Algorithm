@@ -7,7 +7,7 @@
 #include <stdlib.h>
 
 int main(){
-    int fd = open("./test.txt" , O_RDWR, 0);
+    int fd = open("./test.txt" , O_RDONLY, 0);
     if(fd<0){
           printf("FILE OPEN ERROR\n");
           exit(1);
@@ -18,9 +18,10 @@ int main(){
     close(fd);
 
     int num;
-    scanf("input number: %d", &num);
+    printf("input numbers: ");
+    scanf("%d", &num);
     
-    fd = open("./test.txt", O_RDWR | O_TRUNC, 0);
+    fd = open("./test.txt", O_RDONLY, 0);
     if(fd<0){
           printf("FILE OPEN ERROR\n");
           exit(1);
@@ -30,27 +31,25 @@ int main(){
     char newstr[1000] = {0,};
     char tmp[10] = {0,};
     int i = 0;
-    int idx = lseek(fd, i, SEEK_CUR);
+    int idx = lseek(fd, i, SEEK_SET);
     read(fd, tmp, 9);
-    printf("%d %s\n", idx; tmp);
     strcat(newstr, tmp);
     i += 9;
 
     while(idx < filesize){
-        if(cnt == num){
+        if(cnt+1 == num){
             i += 9;
             cnt++;
         }
         memset(tmp, 0, sizeof(tmp));
-        idx = lseek(fd, i, SEEK_CUR);
-        read(fd, tmp, 9);
-        printf("%d %s\n", idx, tmp);    
+        idx = lseek(fd, i, SEEK_SET);
+        read(fd, tmp, 9);   
         strcat(newstr, tmp);
         i += 9;
         cnt++;
     }
 
-    printf("newstr : %s", newstr);
+    printf("%s", newstr);
     close(fd);
 
     return 0;
